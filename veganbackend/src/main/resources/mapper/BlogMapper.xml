@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.gradthesis.demo.Mapper.BlogMapper">
+    <insert id="addBlog">
+        insert into Blog(customer_id,author_name,title,`describe`,text,img,likes,hits,comments,tag)
+        values(#{blog.customerId},#{blog.authorName},#{blog.title},#{blog.describe},#{blog.text},#{blog.img},#{blog.likes},#{blog.hits},#{blog.comments},#{blog.tag})
+    </insert>
+    <update id="updateComment">
+        update Blog set comments=comments+1 where id=#{id}
+    </update>
+    <delete id="deleteById">
+        delete from Blog where id=#{id}
+    </delete>
+
+
+    <select id="getAllBlogs" resultType="com.zlx.gradthesis.demo.bean.Blog">
+        select * from Blog
+    </select>
+    <select id="getBlogById" resultType="com.zlx.gradthesis.demo.bean.Blog">
+        select * from Blog where id=#{id}
+    </select>
+    <select id="getBlogByAuthor" resultType="com.zlx.gradthesis.demo.bean.Blog">
+        select * from Blog where customer_id= #{authorId}
+    </select>
+</mapper>

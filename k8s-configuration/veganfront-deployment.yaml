@@ -1,0 +1,21 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: veganfront-deployment 
+  labels: 
+    app: veganfront 
+spec: 
+  replicas: 3 
+  selector: 
+    matchLabels: 
+      app: veganfront 
+  template: 
+    metadata: 
+      labels: 
+        app: veganfront
+    spec: 
+      containers: 
+      - name: veganfront
+        image: jinling123/veganfront:v1
+        ports: 
+        - containerPort: 8081

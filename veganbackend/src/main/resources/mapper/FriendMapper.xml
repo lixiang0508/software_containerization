@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.gradthesis.demo.Mapper.FriendMapper">
+    <insert id="addFriend">
+        insert into friend(name,age,customer_id,religion,religion_name,height,intro,veg_age,expectation,pic,contact)
+        values(#{friend.name},#{friend.age},#{friend.customerId},#{friend.religion},#{friend.religionName},#{friend.height}.#{friend.intro}
+        ,#{friend.vegAge},#{friend.expectation},#{friend.pic},#{friend.contact})
+    </insert>
+
+    <delete id="deleteById">
+        delete  from friend where id=#{id}
+    </delete>
+    <select id="getAllFriends" resultType="com.zlx.gradthesis.demo.bean.Friend">
+        select * from friend
+    </select>
+    <select id="getFriendById" resultType="com.zlx.gradthesis.demo.bean.Friend">
+        select * from friend where id=#{id}
+    </select>
+</mapper>

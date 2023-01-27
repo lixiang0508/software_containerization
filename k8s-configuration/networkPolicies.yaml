@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: net-policy
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: database-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: mysql
+  ingress:
+  - from:
+    - podSelector:
+      matchLabels:
+        app: veganbackend
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: sc-rest-api-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: veganbackend
+  ingress:
+  - from:
+    - podSelector:
+      matchLabels:
+        app: veganfront
+  
+  

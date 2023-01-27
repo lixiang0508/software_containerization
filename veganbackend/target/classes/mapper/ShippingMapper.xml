@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.gradthesis.demo.Mapper.ShippingMapper">
+    <insert id="addShipping">
+        insert into Shipping(user_id,receiver_name,receiver_phone,receiver_mobile,receiver_province,receiver_city,receiver_address,receiver_zip)
+        values(#{shipping.userId},#{shipping.receiverName} ,#{shipping.receiverPhone},#{shipping.receiverMobile},#{shipping.receiverProvince},#{shipping.receiverCity},#{shipping.receiverAddress}
+        ,#{shipping.receiverZip})
+    </insert>
+    <update id="changeShipping">
+        update Shipping set receiver_name=#{shipping.receiverName}, receiver_phone=#{shipping.receiverPhone} , receiver_mobile= #{shipping.receiverMobile} ,
+        receiver_province= #{shipping.receiverProvince} , receiver_city= #{shipping.receiverCity} , receiver_address= #{shipping.receiverAddress},
+                            receiver_zip = #{shipping.receiverZip} where id=#{shipping.id}
+    </update>
+    <delete id="deleteShipping">
+        delete  from Shipping where id=#{id}
+    </delete>
+
+    <select id="findAddrsByCusId" resultType="com.zlx.gradthesis.demo.bean.Shipping">
+     select * from Shipping where user_id =#{userId}
+
+    </select>
+    <select id="findShippingById" resultType="com.zlx.gradthesis.demo.bean.Shipping">
+        select * from Shipping where id =#{shippingId}
+    </select>
+</mapper>

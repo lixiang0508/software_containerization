@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: com.zlx.gradthesis.demo.Service.CartServiceTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.989 s <<< FAILURE! - in com.zlx.gradthesis.demo.Service.CartServiceTest
+selectShoppingCartsByIds  Time elapsed: 0.006 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'getServerEndPointExporter' defined in class path resource [com/zlx/gradthesis/demo/websocket/WebSocketConfig.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: javax.websocket.server.ServerContainer not available
+Caused by: java.lang.IllegalStateException: javax.websocket.server.ServerContainer not available
+

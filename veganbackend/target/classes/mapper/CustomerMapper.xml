@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.gradthesis.demo.Mapper.CustomerMapper">
+    <insert id="addCustomer">
+    insert into Customers(`user_name`,`phone_number`,`email`,`pwd`,`age`,`icon`,`update_time`,`gender`,`veg_type`)
+    values(#{userName},#{phoneNumber},#{email},#{pwd},#{age},#{icon},#{updateTime},#{gender},#{vegType})
+
+    </insert>
+    <update id="updateCustomer">
+
+     update Customers set user_name = #{customer.userName},phone_number = #{customer.phoneNumber},email= #{customer.email},pwd=#{customer.pwd},
+                          age=#{customer.age},gender=#{customer.gender},veg_type=#{customer.vegType} where id=#{customer.id}
+    </update>
+    <delete id="deleteCustomer">
+        delete Customer where id=#{cusId}
+    </delete>
+
+
+    <select id="findByUserName" resultType="com.zlx.gradthesis.demo.bean.Customer">
+        select * from Customers where user_name = #{userName}
+    </select>
+    <select id="findByPhoneNumber" resultType="com.zlx.gradthesis.demo.bean.Customer">
+        select * from Customers where phone_number = #{phoneNumber}
+    </select>
+    <select id="countUserName" resultType="java.lang.Integer">
+        select count(*) from Customers where user_name = #{userName}
+    </select>
+    <select id="findById" resultType="com.zlx.gradthesis.demo.bean.Customer">
+        select * from Customers where id=#{id}
+    </select>
+    <select id="countEmail" resultType="java.lang.Integer">
+        select count(*) from Customers where email = #{email}
+    </select>
+    <select id="getAllCus" resultType="com.zlx.gradthesis.demo.bean.Customer">
+        select * from Customers
+    </select>
+</mapper>

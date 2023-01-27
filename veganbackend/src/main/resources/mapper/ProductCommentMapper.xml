@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.gradthesis.demo.Mapper.ProductCommentMapper">
+    <insert id="addProductComment">
+        insert into product_comment (customer_id,customer_name,score,order_id,comment,create_time,product_id,product_name,comm_type)
+        values(#{productComment.customerId},#{productComment.customerName},#{productComment.score},#{productComment.orderId},#{productComment.comment},
+        #{productComment.createTime},#{productComment.productId},#{productComment.productName},#{productComment.commType})
+    </insert>
+
+
+    <select id="getCommentByProductId" resultType="com.zlx.gradthesis.demo.bean.ProductComment">
+   select * from product_comment where product_id = #{productId}
+
+    </select>
+    <select id="getCommentByProductIdPage" resultType="com.zlx.gradthesis.demo.bean.ProductComment">
+        select * from product_comment where product_id = #{productId} limit #{start},#{limit}
+    </select>
+</mapper>

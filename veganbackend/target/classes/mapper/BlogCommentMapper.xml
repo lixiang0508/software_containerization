@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.gradthesis.demo.Mapper.BlogCommentMapper">
+    <insert id="addComment">
+
+    insert into blog_comment (customer_id,customer_name,blog_id,comment,create_time)
+    values(#{blogComment.customerId},#{blogComment.customerName},#{blogComment.blogId},#{blogComment.comment},#{blogComment.createTime})
+
+    </insert>
+
+    <select id="getCommentsByBlogId" resultType="com.zlx.gradthesis.demo.bean.BlogComment">
+        select * from blog_comment where blog_id =#{blogId}
+    </select>
+    <select id="getAllComments" resultType="com.zlx.gradthesis.demo.bean.BlogComment">
+        select * from blog_comment
+    </select>
+</mapper>

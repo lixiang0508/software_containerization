@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.gradthesis.demo.Mapper.RestaurantMapper">
+    <insert id="addComment">
+    insert into restaurant_comment(`customer_id`,`customer_name`,`score`,`restaurant_id`,`comment`,`create_time`)
+    values(#{comment.customerId},#{comment.customerName},#{comment.score},#{comment.restaurantId},
+           #{comment.comment},#{comment.createTime}
+           )
+    </insert>
+
+
+    <select id="getAllRestaurant" resultType="com.zlx.gradthesis.demo.bean.Restaurant">
+
+        select * from restaurant
+    </select>
+    <select id="getRestaurantByRegion" resultType="com.zlx.gradthesis.demo.bean.Restaurant">
+        select * from restaurant where region =#{region}
+    </select>
+    <select id="getRestaurantById" resultType="com.zlx.gradthesis.demo.bean.Restaurant">
+        select * from restaurant where id=#{id}
+    </select>
+    <select id="blurSearch" resultType="com.zlx.gradthesis.demo.bean.Restaurant">
+        select * from restaurant where name like '%${kwd}%'
+    </select>
+    <select id="getCafeCommentsById" resultType="com.zlx.gradthesis.demo.bean.RestaurantComment">
+        select * from restaurant_comment where restaurant_id=#{id}
+    </select>
+    <select id="getAllCafeComments" resultType="com.zlx.gradthesis.demo.bean.RestaurantComment">
+        select * from product_comment
+    </select>
+</mapper>

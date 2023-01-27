@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.gradthesis.demo.Mapper.CartMapper">
+    <insert id="addCart">
+        insert into Cart(`product_id`,`quantity`,product_selected,customer_id) values(#{productId},#{quantity},0,#{customerId})
+    </insert>
+
+    <update id="changeCount">
+        update Cart set quantity=#{quantity} where id=#{cartId} and customer_id =#{customerId}
+    </update>
+    <update id="changeSelectStatus">
+        update Cart set product_selected = case
+
+                                               when   product_selected=1 then 0
+
+                                               else 1
+            end
+        where id =#{cartId};
+    </update>
+    <update id="updateCart">
+        update Cart set quantity=quantity+#{quantity} where product_id =#{productId} and customer_id =#{customerId}
+    </update>
+    <delete id="deleteCartByCusIdAndProId">
+        delete  from Cart where product_id=#{proId} and customer_id =#{cusId}
+    </delete>
+    <delete id="deleteCartById">
+
+   delete  from Cart where id= #{cartId}
+    </delete>
+
+    <select id="countTotalPrice" resultType="java.lang.Double">
+        select sum( a.price* `quantity`) total_price from Cart inner join
+
+    (select Cart.product_id, Product.`price` from Cart left join Product on Cart.`product_id`=Product.id where product_selected=1 and customer_id =#{customerId}  ) a
+
+            on  Cart.product_id=a.`product_id` where customer_id =#{customerId} ;
+    </select>
+    <select id="selectCartByCusId" resultType="com.zlx.gradthesis.demo.DTO.CartDTO">
+        select c.*,p.name as product_name ,p.stock as stock,p.price as price,p.producer as producer,i.src as product_src from Cart c inner join Product p inner join product_img i
+             on c.`product_id` = p.`id` and i.`product_id`=p.id where c.`customer_id`=#{cusId} and i.`is_main`=1
+    </select>
+    <select id="selectShoppingCartsByIds" resultType="com.zlx.gradthesis.demo.DTO.CartDTO">
+        select c.*,p.name as product_name ,p.stock as stock,p.price as price,p.producer as producer,i.src as product_src from Cart c inner join Product p inner join product_img i
+    on c.`product_id` = p.`id` and i.`product_id`=p.id where   i.`is_main`=1 and c.id in
+   <foreach collection="ids" item="cid" separator="," open="(" close=")">
+       #{cid}
+   </foreach>
+
+
+    </select>
+    <select id="getChosenProducts" resultType="java.lang.Integer">
+        select count(*) chosen_products from Cart inner join
+
+                                                          (select Cart.product_id, Product.`price` from Cart left join Product on Cart.`product_id`=Product.id where product_selected=1 and customer_id =#{customerId}  ) a
+
+                                                          on  Cart.product_id=a.`product_id` where customer_id =#{customerId} ;
+    </select>
+    <select id="selectCartByCusIdAndProductId" resultType="java.lang.Integer">
+    select count(*) from Cart where product_id =#{productId} and customer_id =#{cusId}
+
+    </select>
+</mapper>
