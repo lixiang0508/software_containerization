@@ -18,4 +18,4 @@ spec:
       - name: veganbackend 
         image: localhost:32000/veganbackend:v1
         ports: 
-        - containerPort: 8080
+        - containerPort: 5000
