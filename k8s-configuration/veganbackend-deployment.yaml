@@ -16,6 +16,6 @@ spec:
     spec: 
       containers: 
       - name: veganbackend 
-        image: jinling123/veganbackend:v1
+        image: localhost:32000/veganbackend:v1
         ports: 
         - containerPort: 8080
