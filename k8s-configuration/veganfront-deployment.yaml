@@ -16,6 +16,6 @@ spec:
     spec: 
       containers: 
       - name: veganfront
-        image: jinling123/veganfront:v1
+        image: localhost:32000/veganfront:v1
         ports: 
-        - containerPort: 8081
+        - containerPort: 80
