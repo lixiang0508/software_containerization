@@ -6,8 +6,8 @@ spec:
   type: NodePort
   ports: 
    - protocol: TCP  
-     port: 8081
-     targetPort: 80
-     nodePort: 33010
+     nodePort: 30002 
+     port: 8091 
+     targetPort: 80 
   selector: 
     app: veganfront
