@@ -22,6 +22,9 @@ spec:
                 secretKeyRef:
                   key: password
                   name: mysqldbsecret
+          envFrom: 
+            - configMapRef: 
+                name: mysqldbconfigmap 
           ports:
             - containerPort: 3306
               name: mysql
@@ -30,8 +33,6 @@ spec:
               mountPath: /var/lib/mysql
       volumes:
         - name: mysql-persistent-storage
-          configMap:
-            name: mysqldbconfigmap
           persistentVolumeClaim:
             claimName: mysql-pv-claim
 
