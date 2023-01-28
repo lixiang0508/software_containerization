@@ -9,8 +9,8 @@
   #MYSQL_USER: postgresadmin
   #MYSQL_PASSWORD: jinling
 apiVersion: v1
-data:
-  my.cnf: "# but WITHOUT ANY WARRANTY; without even the implied warranty of
+#data:
+  #my.cnf: "# but WITHOUT ANY WARRANTY; without even the implied warranty of
           # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
           # GNU General Public License, version 2.0, for more details.
           #
@@ -18,8 +18,14 @@ data:
           # along with this program; if not, write to the Free Software
           # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-          !includedir /etc/mysql/conf.d/
-          !includedir /etc/mysql/mysql.conf.d/"
+          #!includedir /etc/mysql/conf.d/
+          #!includedir /etc/mysql/mysql.conf.d/"
 kind: ConfigMap
 metadata:
   name: mysqldbconfigmap
+  labels:
+    app: postgres
+data:
+  MYSQL_DB: mysqldb
+  MYSQL_USER: root
+  MYSQL_ROOT_PASSWORD: jinling
