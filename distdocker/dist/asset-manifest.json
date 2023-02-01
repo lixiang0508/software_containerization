@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5203c046.css",
+    "main.js": "/static/js/main.aadbdebf.js",
+    "static/js/750.4b691ce2.chunk.js": "/static/js/750.4b691ce2.chunk.js",
+    "static/media/veg-web1.jpeg": "/static/media/veg-web1.4983420359827c389f0e.jpeg",
+    "static/media/article3.jpeg": "/static/media/article3.be1649f85a90d1fb0a6e.jpeg",
+    "static/media/veg-web-2.jpeg": "/static/media/veg-web-2.c3e51474e4926c88b489.jpeg",
+    "static/media/vegan-blog-pic.webp": "/static/media/vegan-blog-pic.369adbbf11a5a73a0915.webp",
+    "static/media/veg-web-3.jpeg": "/static/media/veg-web-3.4a7b529c921650909921.jpeg",
+    "index.html": "/index.html",
+    "main.5203c046.css.map": "/static/css/main.5203c046.css.map",
+    "main.aadbdebf.js.map": "/static/js/main.aadbdebf.js.map",
+    "750.4b691ce2.chunk.js.map": "/static/js/750.4b691ce2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5203c046.css",
+    "static/js/main.aadbdebf.js"
+  ]
+}
