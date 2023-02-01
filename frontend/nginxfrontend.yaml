@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: veganpro
+  namespace: vegan
+  labels:
+    app: veganpro
+spec:
+  selector:
+    matchLabels:
+      app: veganpro
+  replicas: 1
+  revisionHistoryLimit: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 30%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: veganpro
+    spec:
+      containers:
+        - name: veganpro
+          image: nginx:1.21.5
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 700m
+              memory: 1000Mi
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 45
+            timeoutSeconds: 45
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 9
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+          ports:
+            - containerPort:  80
+              name: veganpro 
+          volumeMounts:
+            - name: cmveganpro
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+              readOnly: true
+            - name: pvcveganpro
+              mountPath: /usr/local/nginx/html
+              subPath: dist/
+      volumes:
+        - name: cmveganpro 
+          configMap:
+            name: veganpro-cm
+        - name: pvcveganpro
+          persistentVolumeClaim:
+            claimName: pvcveganpro-nfs

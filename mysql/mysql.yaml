@@ -1,0 +1,99 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-fox-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mysql-fox
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-fox
+    spec:
+      containers:
+        - name: mysql-fox
+          image: mysql:5.7
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m 
+              memory: 1000Mi
+          livenessProbe:
+            tcpSocket:                
+              port: 3306     
+            initialDelaySeconds: 50
+            periodSeconds: 10          
+            timeoutSeconds: 1        
+            successThreshold: 1      
+            failureThreshold: 3
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: user-and-passwd
+                  key: password
+              # value: "123456"
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+            - name: config-volume
+              mountPath: /etc/mysql/conf.d 
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+        - name: config-volume
+          configMap:
+            name: mysql-config
+
+
+  # volumeClaimTemplates:
+  # - metadata:
+  #     name: mysql-persistent-storage
+  #   spec:
+  #     accessModes: [ "ReadwriteOnce" ]
+  #     storageClassName: standard-rwo
+  #     resources:
+  #       requests:
+  #         storage: 1Gi
+  #         restartPolicy: Always
+---
+ apiVersion: v1
+ kind: Service
+ metadata:
+   name: mysql-fox
+ spec:
+   ports:
+     - name: mysql-fox-port
+       protocol: TCP
+       port: 3306
+       targetPort: 3306
+       nodePort: 31306
+   type: NodePort
+   selector:
+     app: mysql-fox
+
+#kind: Service
+#apiVersion: v1
+#metadata:
+#  name: mysql-fox
+#  labels:
+#    name: mysql-fox
+#spec:
+#  type: LoadBalancer
+#  ports:
+#  - protocol: TCP
+#    nodePort: 31001
+#    targetPort: 3306
+#    port: 3306
+#  selector:
+#    app: mysql-fox
