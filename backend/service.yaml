@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vegan
+  namespace: vegan
+spec:
+  ports:
+    - port: 8085
+      targetPort: 8085
+      nodePort: 30085
+      name: vegan
+  selector:
+    app: vegan
+  type: NodePort
+

@@ -1,0 +1,30 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vegan
+  namespace: vegan
+rules:
+  - apiGroups: [""]
+    resources: ["pods","services","endpoints","namespaces","configmaps"]
+    verbs: ["get","list","watch","create","delete","update"]
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vegan
+  namespace: vegan
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vegan
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vegan
+subjects:
+- kind: ServiceAccount
+  name: vegan
+  namespace: vegan

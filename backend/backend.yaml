@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  vegan
+  labels:
+    app:  vegan
+spec:
+  selector:
+    matchLabels:
+      app: vegan
+  replicas: 1
+  revisionHistoryLimit: 15
+  strategy:
+    rollingUpdate:
+      maxSurge: 30%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: vegan
+    spec:
+      containers:
+      - name: vegan
+        image: jinling123/veganbackend:v1.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 400m
+            memory: 1000Mi
+          limits:
+            cpu: 600m 
+            memory: 1200Mi
+        livenessProbe:
+          tcpSocket:
+            port: 8085 
+          initialDelaySeconds: 110
+          timeoutSeconds: 120
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe: 
+          tcpSocket:
+            port: 8085  
+          initialDelaySeconds: 110
+          timeoutSeconds: 120
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        ports:
+        - containerPort: 8085
+          name:  veganport
+        volumeMounts:
+        - name: cmvegan
+          mountPath: /config
+        - name: pvcvegan
+          mountPath: /home/
+      volumes:
+        - name: cmvegan
+          configMap:
+            name: vegan-cm
+        - name: pvcvegan
+          persistentVolumeClaim:
+            claimName: vegan-pv
